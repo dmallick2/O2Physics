@@ -1012,13 +1012,13 @@ void o2::aod::dqhistograms::DefineHistograms(HistogramManager* hm, const char* h
       }
 
       if (subGroupStr.Contains("dimuon-rap-polarization-he-pbpb-lowmass")) {
-        int varsHEpbpb[5] = {VarManager::kMass, VarManager::kPt, VarManager::kCentFT0C,VarManager::kCosThetaHE, VarManager::kRap};
+        int varsHEpbpb[5] = {VarManager::kMass, VarManager::kPt, VarManager::kCentFT0C, VarManager::kCosThetaHE, VarManager::kRap};
         int binspT[5] = {120, 30, 10, 10, 6};
         double xminpT[5] = {0., 0., 0, -1.0, 2.5};
-        double xmaxpT[5] = {1.2, 3., 100,1.0, 4.0};
+        double xmaxpT[5] = {1.2, 3., 100, 1.0, 4.0};
         hm->AddHistogram(histClass, "Mass_Pt_Cent_cosThetaHE_Rap_lowmass", "", 5, varsHEpbpb, binspT, xminpT, xmaxpT, 0, -1, kFALSE);
-        }
-      
+      }
+
       if (subGroupStr.Contains("multiplicity-fvoa")) {
         int varsFV0AMulHE[4] = {VarManager::kMass, VarManager::kMultFV0A, VarManager::kCosThetaHE, VarManager::kPhiHE};
         int varsFV0AMulCS[4] = {VarManager::kMass, VarManager::kMultFV0A, VarManager::kCosThetaCS, VarManager::kPhiCS};
