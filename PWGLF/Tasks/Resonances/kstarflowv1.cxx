@@ -26,7 +26,7 @@
 #include <TPDGCode.h>
 #include <string>
 #include <vector>
-//#include <TDatabasePDG.h>
+// #include <TDatabasePDG.h>
 #include <cmath>
 #include <array>
 #include <cstdlib>
@@ -70,7 +70,7 @@ using namespace o2::constants::physics;
 struct KstarFlowv1 {
 
   Service<o2::ccdb::BasicCCDBManager> ccdb;
-  //Service<o2::framework::O2DatabasePDG> pdg;
+  // Service<o2::framework::O2DatabasePDG> pdg;
 
   // events
   Configurable<float> cfgCutVertex{"cfgCutVertex", 10.0f, "Accepted z-vertex range"};
@@ -98,16 +98,16 @@ struct KstarFlowv1 {
   Configurable<float> confMaxRot{"confMaxRot", 7.0 * o2::constants::math::PI / 6.0, "Maximum of rotation"};
   Configurable<int> nBkgRotations{"nBkgRotations", 9, "Number of rotated copies (background) per each original candidate"};
   Configurable<bool> fillRotation{"fillRotation", true, "fill rotation"};
-  Configurable<bool> like{"like", true, "fill rotation"};  
+  Configurable<bool> like{"like", true, "fill rotation"};
   Configurable<int> spNbins{"spNbins", 2000, "Number of bins in sp"};
   Configurable<float> lbinsp{"lbinsp", -1.0, "lower bin value in sp histograms"};
   Configurable<float> hbinsp{"hbinsp", 1.0, "higher bin value in sp histograms"};
 
-  ConfigurableAxis configcentAxis{"configcentAxis", {VARIABLE_WIDTH, 0.0, 10.0, 30.0,50.0,80.0}, "Cent V0M"};
+  ConfigurableAxis configcentAxis{"configcentAxis", {VARIABLE_WIDTH, 0.0, 10.0, 30.0, 50.0, 80.0}, "Cent V0M"};
   ConfigurableAxis configthnAxisPt{"configthnAxisPt", {VARIABLE_WIDTH, 0.2, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.5, 8.0, 10.0, 50.0}, "#it{p}_{T} (GeV/#it{c})"};
   ConfigurableAxis configetaAxis{"configetaAxis", {VARIABLE_WIDTH, -0.8, -0.4, -0.2, 0, 0.2, 0.4, 0.8}, "Eta"};
-  ConfigurableAxis configIMAxis{"configIMAxis", {VARIABLE_WIDTH, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0,1.05,1.1,1.15,1.2}, "IM"};
-  
+  ConfigurableAxis configIMAxis{"configIMAxis", {VARIABLE_WIDTH, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0, 1.05, 1.1, 1.15, 1.2}, "IM"};
+
   Filter collisionFilter = nabs(aod::collision::posZ) < cfgCutVertex;
   Filter centralityFilter = nabs(aod::cent::centFT0C) < cfgCutCentrality;
   Filter acceptanceFilter = (nabs(aod::track::eta) < cfgCutEta && nabs(aod::track::pt) > cfgCutPT);
@@ -122,26 +122,23 @@ struct KstarFlowv1 {
 
   HistogramRegistry histos{"histos", {}, OutputObjHandlingPolicy::AnalysisObject};
 
-
   void init(o2::framework::InitContext&)
   {
     AxisSpec spAxis = {spNbins, lbinsp, hbinsp, "Sp"};
-    
+
     histos.add("hpQxtQxpvscent", "hpQxtQxpvscent", HistType::kTHnSparseF, {configcentAxis, spAxis}, true);
     histos.add("hpQytQypvscent", "hpQytQypvscent", HistType::kTHnSparseF, {configcentAxis, spAxis}, true);
     histos.add("hpQxytpvscent", "hpQxytpvscent", HistType::kTHnSparseF, {configcentAxis, spAxis}, true);
     histos.add("hpQxtQypvscent", "hpQxtQypvscent", HistType::kTHnSparseF, {configcentAxis, spAxis}, true);
     histos.add("hpQxpQytvscent", "hpQxpQytvscent", HistType::kTHnSparseF, {configcentAxis, spAxis}, true);
-    
+
     histos.add("hpv1vscentpteta", "hpv1vscentpteta", HistType::kTHnSparseF, {configIMAxis, configcentAxis, configthnAxisPt, configetaAxis, spAxis}, true);
     histos.add("hpv1vscentptetarot", "hpv1vscentptetarot", HistType::kTHnSparseF, {configIMAxis, configcentAxis, configthnAxisPt, configetaAxis, spAxis}, true);
-    histos.add("hpv1vscentptetalike", "hpv1vscentptetalike", HistType::kTHnSparseF, {configIMAxis, configcentAxis, configthnAxisPt, configetaAxis, spAxis}, true);    
+    histos.add("hpv1vscentptetalike", "hpv1vscentptetalike", HistType::kTHnSparseF, {configIMAxis, configcentAxis, configthnAxisPt, configetaAxis, spAxis}, true);
   }
 
-  
   double massKa = o2::constants::physics::MassKPlus;
   double massPi = o2::constants::physics::MassPiMinus;
-
 
   template <typename T>
   bool selectionTrack(const T& candidate)
@@ -154,7 +151,6 @@ struct KstarFlowv1 {
     }
     return true;
   }
-
 
   template <typename T>
   bool strategySelectionPID(const T& candidate, int PID, int strategy)
@@ -217,7 +213,7 @@ struct KstarFlowv1 {
   }
 
   double getPhiInRange(double phi)
-{
+  {
     double pi = o2::constants::math::PI;
     double twoPi = 2.0 * pi;
     double result = phi;
@@ -226,24 +222,21 @@ struct KstarFlowv1 {
     // if (result < 0) {
     //  result += twoPi;
     // }
-    //result -= pi; // Now result is in [-pi, pi]
+    // result -= pi; // Now result is in [-pi, pi]
 
-   // Convert from [-pi, pi] to [0, pi]
+    // Convert from [-pi, pi] to [0, pi]
     if (result < 0) {
-        result += pi; // Shift negative values to positive
+      result += pi; // Shift negative values to positive
     }
 
     // If phi > 2π, subtract π instead of normalizing by 2π
     if (phi > twoPi) {
-        result -= pi;
+      result -= pi;
     }
 
     return result; // Ensures range is [0, π]
-}
+  }
 
-    
-  
- 
   template <typename T>
   bool isFakeKaon(T const& track, int /*PID*/)
   {
@@ -264,29 +257,26 @@ struct KstarFlowv1 {
     }
     auto centrality = collision.centFT0C();
 
-    
     auto qxZDCA = collision.qxZDCA();
     auto qxZDCC = collision.qxZDCC();
     auto qyZDCA = collision.qyZDCA();
     auto qyZDCC = collision.qyZDCC();
     auto psiZDCC = collision.psiZDCC();
     auto psiZDCA = collision.psiZDCA();
-    
-        
+
     auto proQxtQxp = qxZDCA * qxZDCC;
     auto proQytQyp = qyZDCA * qyZDCC;
     auto proQxytp = proQxtQxp + proQytQyp;
     auto proQxpQyt = qxZDCA * qyZDCC;
     auto proQxtQyp = qxZDCC * qyZDCA;
-    
+
     histos.fill(HIST("hpQxtQxpvscent"), centrality, proQxtQxp);
     histos.fill(HIST("hpQytQypvscent"), centrality, proQytQyp);
     histos.fill(HIST("hpQxytpvscent"), centrality, proQxytp);
     histos.fill(HIST("hpQxpQytvscent"), centrality, proQxpQyt);
     histos.fill(HIST("hpQxtQypvscent"), centrality, proQxtQyp);
-    
-      
-    for (const auto&  track1 : tracks) {
+
+    for (const auto& track1 : tracks) {
       if (!selectionTrack(track1)) {
         continue;
       }
@@ -319,17 +309,17 @@ struct KstarFlowv1 {
           continue;
         }
 
-       // // constrain angle to 0 -> [0,0+2pi]
-	//       auto phi = RecoDecay::constrainAngle(KstarMother.Phi(), 0,o2::constants::math::TwoPI);
-	
-	auto ux = std::cos(getPhiInRange(KstarMother.Phi()));
+        // // constrain angle to 0 -> [0,0+2pi]
+        //       auto phi = RecoDecay::constrainAngle(KstarMother.Phi(), 0,o2::constants::math::TwoPI);
+
+        auto ux = std::cos(getPhiInRange(KstarMother.Phi()));
         auto uy = std::sin(getPhiInRange(KstarMother.Phi()));
         auto v1 = ux * (qxZDCA - qxZDCC) + uy * (qyZDCA - qyZDCC);
-        
+
         // unlike sign
         if (track1.sign() * track2.sign() < 0) {
           histos.fill(HIST("hpv1vscentpteta"), KstarMother.M(), centrality, KstarMother.Pt(), KstarMother.Rapidity(), v1);
-	  if (fillRotation) {
+          if (fillRotation) {
             for (int nrotbkg = 0; nrotbkg < nBkgRotations; nrotbkg++) {
               auto anglestart = confMinRot;
               auto angleend = confMaxRot;
@@ -340,30 +330,29 @@ struct KstarFlowv1 {
               kaonrot = ROOT::Math::PxPyPzMVector(rotkaonPx, rotkaonPy, track1.pz(), massKa);
               kstarrot = kaonrot + daughter2;
 
-	      if (std::abs(kstarrot.Rapidity()) > 0.9) {
+              if (std::abs(kstarrot.Rapidity()) > 0.9) {
                 continue;
               }
-	      
-	      auto uxrot = std::cos(getPhiInRange(KstarMother.Phi()));
-	      auto uyrot = std::sin(getPhiInRange(KstarMother.Phi()));
-	      
-	      auto v1rot = uxrot * (qxZDCA - qxZDCC) + uyrot * (qyZDCA - qyZDCC);
-	      
-	      histos.fill(HIST("hpv1vscentptetarot"), kstarrot.M(), centrality, kstarrot.Pt(), kstarrot.Rapidity(), v1rot);
+
+              auto uxrot = std::cos(getPhiInRange(KstarMother.Phi()));
+              auto uyrot = std::sin(getPhiInRange(KstarMother.Phi()));
+
+              auto v1rot = uxrot * (qxZDCA - qxZDCC) + uyrot * (qyZDCA - qyZDCC);
+
+              histos.fill(HIST("hpv1vscentptetarot"), kstarrot.M(), centrality, kstarrot.Pt(), kstarrot.Rapidity(), v1rot);
             }
           }
         }
         // like sign
         if (track1.sign() * track2.sign() > 0) {
-	  histos.fill(HIST("hpv1vscentptetalike"), kstarrot.M(), centrality, kstarrot.Pt(), kstarrot.Rapidity(), v1);
-	}
+          histos.fill(HIST("hpv1vscentptetalike"), kstarrot.M(), centrality, kstarrot.Pt(), kstarrot.Rapidity(), v1);
+        }
       }
     }
   }
   PROCESS_SWITCH(KstarFlowv1, processSE, "Process Same event", true);
 };
- WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
+WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
 {
   return WorkflowSpec{adaptAnalysisTask<KstarFlowv1>(cfgc)};
 }
-  
