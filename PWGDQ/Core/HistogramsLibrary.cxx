@@ -1081,18 +1081,17 @@ void o2::aod::dqhistograms::DefineHistograms(HistogramManager* hm, const char* h
         int binspT[4] = {50, 10, 20, 1000};
         double xminpT[4] = {2., 0., -1., -0.03};
         double xmaxpT[4] = {4., 20., 1., 0.03};
-	hm->AddHistogram(histClass, "Tauxy_Mass_Pt_CosthetaHE", "",4, varspTHE, binspT, xminpT, xmaxpT, 0, -1, kFALSE);
-    }
-      
-       if (subGroupStr.Contains("tauxy-midy-pol-rand")) {
-          int varspTRand[4] = {VarManager::kMass, VarManager::kPt,VarManager::kCosThetaRM, VarManager::kVertexingTauxyProjectedPoleJPsiMass};
- 	 
+        hm->AddHistogram(histClass, "Tauxy_Mass_Pt_CosthetaHE", "", 4, varspTHE, binspT, xminpT, xmaxpT, 0, -1, kFALSE);
+      }
+
+      if (subGroupStr.Contains("tauxy-midy-pol-rand")) {
+        int varspTRand[4] = {VarManager::kMass, VarManager::kPt, VarManager::kCosThetaRM, VarManager::kVertexingTauxyProjectedPoleJPsiMass};
+
         int binspT[4] = {50, 10, 20, 1000};
         double xminpT[4] = {2., 0., -1., -0.03};
         double xmaxpT[4] = {4., 20., 1., 0.03};
-	 hm->AddHistogram(histClass, "Tauxy_Mass_Pt_CosthetaRand", "",4, varspTRand, binspT, xminpT, xmaxpT, 0, -1, kFALSE);
+        hm->AddHistogram(histClass, "Tauxy_Mass_Pt_CosthetaRand", "", 4, varspTRand, binspT, xminpT, xmaxpT, 0, -1, kFALSE);
       }
-      
 
       if (subGroupStr.Contains("kalman-filter")) {
         hm->AddHistogram(histClass, "LxyErr", "", false, 100, 0.0, 10.0, VarManager::kVertexingLxyErr);
